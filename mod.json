@@ -1,0 +1,89 @@
+{
+	"geode": "6.0.0-alpha.1",
+	"gd": {
+		"win": "2.2091",
+		"android": "2.2091",
+		"mac": "2.2091",
+		"ios": "2.2091"
+	},
+	"id": "local.practice-hud",
+	"name": "Practice Music + HUD",
+	"version": "v1.0.0",
+	"developer": "local",
+	"description": "Musica del nivel en modo practica y un HUD con FPS, CPS, clicks, intento y porcentaje.",
+	"tags": ["utility", "interface", "gameplay"],
+	"settings": {
+		"practice-music": {
+			"type": "bool",
+			"name": "Musica en modo practica",
+			"description": "Activa la opcion Practice Music Sync del juego (la musica del nivel suena y se sincroniza en modo practica).",
+			"default": true
+		},
+		"show-hud": {
+			"type": "bool",
+			"name": "Mostrar HUD",
+			"description": "Muestra las estadisticas en pantalla mientras jugas.",
+			"default": true
+		},
+		"show-fps": {
+			"type": "bool",
+			"name": "FPS",
+			"default": true
+		},
+		"show-cps": {
+			"type": "bool",
+			"name": "CPS",
+			"description": "Clicks por segundo (ultimo segundo).",
+			"default": true
+		},
+		"show-max-cps": {
+			"type": "bool",
+			"name": "CPS maximo",
+			"description": "El CPS mas alto de este intento.",
+			"default": false
+		},
+		"show-clicks": {
+			"type": "bool",
+			"name": "Clicks del intento",
+			"default": true
+		},
+		"show-attempt": {
+			"type": "bool",
+			"name": "Intento",
+			"default": true
+		},
+		"show-percent": {
+			"type": "bool",
+			"name": "Porcentaje",
+			"default": false
+		},
+		"hud-position": {
+			"type": "string",
+			"name": "Posicion del HUD",
+			"default": "Arriba izquierda",
+			"one-of": ["Arriba izquierda", "Arriba derecha", "Abajo izquierda", "Abajo derecha"]
+		},
+		"hud-scale": {
+			"type": "float",
+			"name": "Tamano del texto",
+			"default": 0.4,
+			"min": 0.2,
+			"max": 1.0,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"hud-opacity": {
+			"type": "int",
+			"name": "Opacidad",
+			"default": 200,
+			"min": 30,
+			"max": 255,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		}
+	}
+}
