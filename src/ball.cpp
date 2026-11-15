@@ -11,7 +11,7 @@
 using namespace geode::prelude;
 
 namespace {
-    constexpr float kRadius = 20.f;
+    constexpr float kRadius = 22.f;
 
     bool pauseOpen() {
         auto scene = CCDirector::get()->getRunningScene();
@@ -35,14 +35,13 @@ protected:
     bool init() override {
         if (!CCLayer::init()) return false;
 
-        auto dots = CCDrawNode::create();
-        dots->drawDot({0.f, 0.f}, kRadius, {1.f, 1.f, 1.f, 0.9f});
-        dots->drawDot({0.f, 0.f}, kRadius - 3.f, {0.10f, 0.55f, 0.95f, 0.95f});
-        this->addChild(dots);
-
-        if (auto gear = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png")) {
-            gear->setScale(0.45f);
-            this->addChild(gear, 1);
+        // Icono propio (resources/ball.png), ya sin fondo.
+        if (auto icon = CCSprite::create("ball.png"_spr)) {
+            icon->setScale(kRadius * 2.f / std::max(1.f, icon->getContentSize().width));
+            this->addChild(icon);
+        } else if (auto gear = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png")) {
+            gear->setScale(0.8f);
+            this->addChild(gear);
         }
 
         this->setTouchEnabled(true);

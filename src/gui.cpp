@@ -4,6 +4,8 @@
 #include "common.hpp"
 
 #include <algorithm>
+#include <algorithm>
+#include <array>
 #include <cmath>
 #include <cstring>
 #include <string_view>
@@ -89,11 +91,9 @@ namespace {
                 C("slot-clicks", "Clicks", slots),
                 C("slot-attempt", "Attempt", slots),
                 C("slot-percent", "Percent", slots),
-                B("merge-cps-clicks", "Merge CPS + Clicks")
-            }});
-            v.push_back(Page{"HUD Style", {
+                B("merge-cps-clicks", "Merge CPS + Clicks"),
                 N("hud-scale", "Text size", 0.2, 1.0, 0.05),
-                N("hud-opacity", "Opacity", 30, 255, 15, true)
+                N("hud-opacity", "Text opacity", 30, 255, 15, true)
             }});
             v.push_back(PHUD_IMG_PAGE(1, "Image 1"));
             v.push_back(PHUD_IMG_PAGE(2, "Image 2"));
@@ -131,9 +131,34 @@ protected:
     CCNode* m_content = nullptr;
     std::vector<CCLabelBMFont*> m_values;
 
-    static constexpr float W = 360.f;
-    static constexpr float H = 300.f;
-    static constexpr float kRowH = 23.f;
+    static constexpr float W = 440.f;
+    static constexpr float H = 282.f;
+    static constexpr float kRowH = 24.f;
+
+    // Paleta (estilo Eclipse).
+    static constexpr ccColor3B kBorder{20, 23, 42};
+    static constexpr ccColor3B kPanel{37, 42, 61};
+    static constexpr ccColor3B kInner{30, 34, 54};
+    static constexpr ccColor3B kTab{53, 58, 85};
+    static constexpr ccColor3B kField{47, 52, 80};
+    static constexpr ccColor3B kLight{230, 232, 242};
+    static constexpr ccColor3B kAccent{108, 140, 255};
+    static constexpr ccColor3B kDark{32, 36, 58};
+
+    static extension::CCScale9Sprite* box(float w, float h, ccColor3B c, GLubyte op = 255) {
+        auto s = extension::CCScale9Sprite::create("square02b_001.png", {0.f, 0.f, 80.f, 80.f});
+        s->setContentSize({w, h});
+        s->setColor(c);
+        s->setOpacity(op);
+        return s;
+    }
+
+    static CCLabelBMFont* text(std::string const& str, ccColor3B c, float maxW, float scale = 0.7f) {
+        auto l = CCLabelBMFont::create(str.c_str(), "chatFont.fnt");
+        l->setColor(c);
+        l->limitLabelWidth(maxW, scale, 0.25f);
+        return l;
+    }
 
     bool setup() {
         if (!FLAlertLayer::init(150)) return false;
@@ -150,30 +175,47 @@ protected:
         this->setKeypadEnabled(true);
 
         auto win = CCDirector::get()->getWinSize();
-        auto bg = extension::CCScale9Sprite::create("GJ_square01.png", {0.f, 0.f, 80.f, 80.f});
-        bg->setContentSize({W, H});
-        bg->setPosition({win.width / 2.f, win.height / 2.f});
-        m_mainLayer->addChild(bg, 0);
+        auto border = box(W, H, kBorder);
+        border->setPosition({win.width / 2.f, win.height / 2.f});
+        m_mainLayer->addChild(border, 0);
+        auto panel = box(W - 4.f, H - 4.f, kPanel);
+        panel->setPosition({win.width / 2.f, win.height / 2.f});
+        m_mainLayer->addChild(panel, 1);
 
         this->build();
         s_open = this;
         return true;
     }
 
-    CCMenuItemSpriteExtra* arrow(bool right, int tag, SEL_MenuHandler cb, float scale) {
-        CCNode* spr = CCSprite::createWithSpriteFrameName("GJ_arrow_01_001.png");
-        if (spr) {
-            spr->setScale(scale);
-            static_cast<CCSprite*>(spr)->setFlipX(right);
-        } else {
-            spr = ButtonSprite::create(right ? ">" : "<");
-        }
-        auto btn = CCMenuItemSpriteExtra::create(spr, this, cb);
-        btn->setTag(tag);
+    // Boton con fondo redondeado y texto centrado.
+    CCMenuItemSpriteExtra* labelButton(std::string const& str, float w, float h, ccColor3B bg,
+                                       ccColor3B fg, SEL_MenuHandler cb) {
+        auto b = box(w, h, bg);
+        auto l = text(str, fg, w - 12.f, 0.7f);
+        l->setPosition({w / 2.f, h / 2.f});
+        b->addChild(l);
+        auto btn = CCMenuItemSpriteExtra::create(b, this, cb);
+        btn->m_scaleMultiplier = 1.04f;
         return btn;
     }
 
-    static void fit(CCLabelBMFont* lab) { lab->limitLabelWidth(82.f, 0.5f, 0.15f); }
+    // Flecha triangular (izquierda o derecha) dentro de un area tocable.
+    CCMenuItemSpriteExtra* arrow(bool right, int tag) {
+        auto bg = box(26.f, 20.f, kField, 0);
+        auto d = CCDrawNode::create();
+        d->setBlendFunc({GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA});
+        d->m_bUseArea = false;
+        float cx = 13.f, cy = 10.f;
+        std::array<CCPoint, 3> tri = right
+            ? std::array<CCPoint, 3>{CCPoint{cx - 3.f, cy + 5.f}, CCPoint{cx - 3.f, cy - 5.f}, CCPoint{cx + 4.f, cy}}
+            : std::array<CCPoint, 3>{CCPoint{cx + 3.f, cy + 5.f}, CCPoint{cx + 3.f, cy - 5.f}, CCPoint{cx - 4.f, cy}};
+        d->drawPolygon(tri.data(), 3, {0.9f, 0.91f, 0.95f, 1.f}, 0.f, {0.f, 0.f, 0.f, 0.f});
+        bg->addChild(d);
+        auto btn = CCMenuItemSpriteExtra::create(bg, this, menu_selector(PhudGui::onStep));
+        btn->m_scaleMultiplier = 1.2f;
+        btn->setTag(tag);
+        return btn;
+    }
 
     void build() {
         auto const& all = pages();
@@ -191,99 +233,105 @@ protected:
         float cx = win.width / 2.f;
         float cy = win.height / 2.f;
         float left = cx - W / 2.f;
+        float right = cx + W / 2.f;
         float top = cy + H / 2.f;
         float bottom = cy - H / 2.f;
 
-        // Titulo y paginas.
-        auto title = CCLabelBMFont::create("Practice Suite", "goldFont.fnt");
-        title->setScale(0.7f);
-        title->setPosition({cx, top - 20.f});
+        // ---- Barra lateral ----
+        float sideX = left + 10.f + 56.f;
+        auto title = text("Practice Suite", kAccent, 108.f, 0.8f);
+        title->setPosition({sideX, top - 20.f});
         m_content->addChild(title);
 
-        auto pageTitle = CCLabelBMFont::create(
-            fmt::format("{}  ({}/{})", phud::tr(page.title), s_page + 1, n).c_str(), "bigFont.fnt");
-        pageTitle->limitLabelWidth(150.f, 0.55f, 0.2f);
-        pageTitle->setPosition({cx, top - 48.f});
-        m_content->addChild(pageTitle);
+        for (int i = 0; i < n; ++i) {
+            bool sel = (i == s_page);
+            auto btn = this->labelButton(phud::tr(all[i].title), 112.f, 22.f,
+                sel ? kLight : kTab, sel ? kDark : kLight, menu_selector(PhudGui::onTab));
+            btn->m_scaleMultiplier = 1.02f;
+            btn->setTag(i);
+            btn->setPosition({sideX, top - 46.f - static_cast<float>(i) * 25.f});
+            m_buttonMenu->addChild(btn);
+        }
 
-        auto prev = this->arrow(false, 0, menu_selector(PhudGui::onPage), 0.6f);
-        prev->setPosition({cx - 110.f, top - 48.f});
-        m_buttonMenu->addChild(prev);
-        auto next = this->arrow(true, 1, menu_selector(PhudGui::onPage), 0.6f);
-        next->setPosition({cx + 110.f, top - 48.f});
-        m_buttonMenu->addChild(next);
+        // ---- Panel de contenido ----
+        float cLeft = left + 130.f;
+        float cRight = right - 10.f;
+        float cW = cRight - cLeft;
+        auto inner = box(cW, H - 20.f, kInner);
+        inner->setPosition({cLeft + cW / 2.f, cy});
+        m_content->addChild(inner, -1);
 
-        // Filas.
-        float y0 = top - 76.f;
+        float y0 = top - 30.f;
         for (size_t i = 0; i < page.rows.size(); ++i) {
             auto const& r = page.rows[i];
             float y = y0 - static_cast<float>(i) * kRowH;
-
-            if (i % 2 == 0) {
-                if (auto stripe = extension::CCScale9Sprite::create("square02b_001.png", {0.f, 0.f, 80.f, 80.f})) {
-                    stripe->setColor({0, 0, 0});
-                    stripe->setOpacity(70);
-                    stripe->setContentSize({W - 24.f, kRowH - 2.f});
-                    stripe->setPosition({cx, y});
-                    m_content->addChild(stripe, -1);
-                }
-            }
-
-            auto lbl = CCLabelBMFont::create(phud::tr(r.label).c_str(), "bigFont.fnt");
-            lbl->setAnchorPoint({0.f, 0.5f});
-            lbl->setPosition({left + 22.f, y});
-            lbl->limitLabelWidth(170.f, 0.45f, 0.15f);
-            m_content->addChild(lbl);
+            auto label = phud::tr(r.label);
 
             if (r.kind == K::Bool) {
-                auto t = CCMenuItemToggler::createWithStandardSprites(
-                    this, menu_selector(PhudGui::onBool), 0.6f);
+                auto off = box(18.f, 18.f, kTab);
+                auto on = box(18.f, 18.f, kLight);
+                auto dot = box(10.f, 10.f, kAccent);
+                dot->setPosition({9.f, 9.f});
+                on->addChild(dot);
+                auto t = CCMenuItemToggler::create(off, on, this, menu_selector(PhudGui::onBool));
                 t->setTag(static_cast<int>(i));
-                t->setPosition({cx + 100.f, y});
+                t->setPosition({cLeft + 22.f, y});
                 t->toggle(phud::on(r.key));
                 m_buttonMenu->addChild(t);
+
+                auto l = text(label, kLight, cW - 54.f);
+                l->setAnchorPoint({0.f, 0.5f});
+                l->setPosition({cLeft + 38.f, y});
+                m_content->addChild(l);
             } else {
-                auto lb = this->arrow(false, static_cast<int>(i) * 2, menu_selector(PhudGui::onStep), 0.45f);
-                lb->setPosition({cx + 45.f, y});
+                auto l = text(label, kLight, cW - 160.f);
+                l->setAnchorPoint({0.f, 0.5f});
+                l->setPosition({cLeft + 14.f, y});
+                m_content->addChild(l);
+
+                float fw = 128.f;
+                float fx = cRight - 10.f - fw / 2.f;
+                auto field = box(fw, 20.f, kField);
+                field->setPosition({fx, y});
+                m_content->addChild(field);
+
+                auto lb = this->arrow(false, static_cast<int>(i) * 2);
+                lb->setPosition({fx - fw / 2.f + 13.f, y});
                 m_buttonMenu->addChild(lb);
-                auto rb = this->arrow(true, static_cast<int>(i) * 2 + 1, menu_selector(PhudGui::onStep), 0.45f);
-                rb->setPosition({cx + 155.f, y});
+                auto rb = this->arrow(true, static_cast<int>(i) * 2 + 1);
+                rb->setPosition({fx + fw / 2.f - 13.f, y});
                 m_buttonMenu->addChild(rb);
 
-                auto val = CCLabelBMFont::create(valueText(r).c_str(), "bigFont.fnt");
-                val->setPosition({cx + 100.f, y});
-                fit(val);
+                auto val = text(valueText(r), kLight, fw - 56.f, 0.65f);
+                val->setPosition({fx, y});
                 m_content->addChild(val);
                 m_values[i] = val;
             }
         }
 
-        // Ayuda en las paginas de imagenes.
+        // ---- Ayuda en las paginas de imagenes ----
         if (std::string_view(page.title).starts_with("Image")) {
             auto files = phud::listImages();
-            auto hint = CCLabelBMFont::create(
-                phud::tr(files.empty() ? "No PNGs found. Put PNG files in:" : "Put PNG files in:").c_str(),
-                "chatFont.fnt");
-            hint->limitLabelWidth(330.f, 0.6f, 0.2f);
-            hint->setPosition({cx, bottom + 64.f});
+            auto hint = text(phud::tr(files.empty() ? "No PNGs found. Put PNG files in:" : "Put PNG files in:"),
+                kLight, cW - 20.f, 0.6f);
+            hint->setPosition({cLeft + cW / 2.f, bottom + 62.f});
             m_content->addChild(hint);
-            auto path = CCLabelBMFont::create(phud::imagesDir().c_str(), "chatFont.fnt");
-            path->limitLabelWidth(335.f, 0.5f, 0.1f);
-            path->setPosition({cx, bottom + 52.f});
-            path->setOpacity(190);
+            auto path = text(phud::imagesDir(), {160, 166, 190}, cW - 20.f, 0.5f);
+            path->setPosition({cLeft + cW / 2.f, bottom + 49.f});
             m_content->addChild(path);
         }
 
-        // Botones de abajo.
-        auto closeBtn = CCMenuItemSpriteExtra::create(
-            ButtonSprite::create(phud::tr("Close").c_str()), this, menu_selector(PhudGui::onClose));
-        closeBtn->setPosition({cx + 70.f, bottom + 26.f});
-        m_buttonMenu->addChild(closeBtn);
-
-        auto resetBtn = CCMenuItemSpriteExtra::create(
-            ButtonSprite::create(phud::tr("Reset ball").c_str()), this, menu_selector(PhudGui::onResetBall));
-        resetBtn->setPosition({cx - 70.f, bottom + 26.f});
-        m_buttonMenu->addChild(resetBtn);
+        // ---- Botones de abajo (ancho fijo: el texto en espanol no se pisa) ----
+        float by = bottom + 28.f;
+        float bw = (cW - 30.f) / 2.f;
+        auto reset = this->labelButton(phud::tr("Reset ball"), bw, 24.f, kTab, kLight,
+            menu_selector(PhudGui::onResetBall));
+        reset->setPosition({cLeft + 10.f + bw / 2.f, by});
+        m_buttonMenu->addChild(reset);
+        auto close = this->labelButton(phud::tr("Close"), bw, 24.f, kTab, kLight,
+            menu_selector(PhudGui::onClose));
+        close->setPosition({cRight - 10.f - bw / 2.f, by});
+        m_buttonMenu->addChild(close);
     }
 
     void onRebuild(float) { this->build(); }
@@ -294,9 +342,8 @@ protected:
         this->scheduleOnce(schedule_selector(PhudGui::onRebuild), 0.f);
     }
 
-    void onPage(CCObject* sender) {
-        int tag = static_cast<CCNode*>(sender)->getTag();
-        s_page += (tag == 0) ? -1 : 1;
+    void onTab(CCObject* sender) {
+        s_page = static_cast<CCNode*>(sender)->getTag();
         this->deferRebuild();
     }
 
@@ -349,7 +396,7 @@ protected:
 
         if (i < m_values.size() && m_values[i]) {
             m_values[i]->setString(valueText(r).c_str());
-            fit(m_values[i]);
+            m_values[i]->limitLabelWidth(72.f, 0.65f, 0.25f);
         }
     }
 

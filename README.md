@@ -15,9 +15,9 @@ General > Language.
 ```bash
 cd ~/practice-hud
 rm -rf src
-unzip -o ~/storage/downloads/practice-hud-v3.1.zip -d .
+unzip -o ~/storage/downloads/practice-hud-v3.2.zip -d .
 git add -A
-git commit -m "v3.0.1: bola flotante, HUD por posiciones, imagenes, idiomas"
+git commit -m "v3.2.0: menu estilo Eclipse, nuevo icono"
 git push
 gh run watch
 ```

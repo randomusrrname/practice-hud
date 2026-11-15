@@ -8,7 +8,7 @@
 	},
 	"id": "local.practice-hud",
 	"name": "Practice Suite",
-	"version": "v3.0.0",
+	"version": "v3.2.0",
 	"developer": "local",
 	"description": "Floating config menu, customizable HUD (FPS/CPS/images), practice music, noclip, speedhack, hitboxes, unlocks and safe mode. English / Español.",
 	"tags": [

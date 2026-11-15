@@ -1,3 +1,9 @@
+# v3.2.0
+- New menu look (Eclipse style): tabs on the left, uniform rows, flat buttons.
+- New floating ball icon (no background).
+- Fixed overlapping buttons in Spanish.
+- HUD style options moved into the HUD tab.
+
 # v3.0.1
 - Fix de compilacion (bola).
 

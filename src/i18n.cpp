@@ -30,7 +30,7 @@ namespace {
             {"No char limit", "Sin limite de texto"},
             {"Max CPS", "CPS maximo"}, {"Attempt", "Intento"}, {"Percent", "Porcentaje"},
             {"Merge CPS + Clicks", "Unir CPS y clicks"},
-            {"Text size", "Tamano del texto"}, {"Opacity", "Opacidad"},
+            {"Text size", "Tamano del texto"}, {"Text opacity", "Opacidad del texto"}, {"Opacity", "Opacidad"},
             {"Enabled", "Activada"}, {"File", "Archivo"}, {"Position", "Posicion"},
             {"Scale", "Escala"}, {"Offset X", "Desplazar X"}, {"Offset Y", "Desplazar Y"},
             {"Close", "Cerrar"}, {"Reset ball", "Reiniciar bola"},
