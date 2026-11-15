@@ -26,8 +26,8 @@ jobs:
       - name: Build the mod
         uses: geode-sdk/build-geode-mod@main
         with:
-          # Geode v6 alpha. Si el build falla por el SDK, cambia a "nightly".
-          sdk: v6.0.0-alpha.1
+          # Geode v6 alpha 2. Si el build falla por el SDK, cambia a "nightly".
+          sdk: v6.0.0-alpha.2
           combine: true
           target: ${{ matrix.config.target }}
 

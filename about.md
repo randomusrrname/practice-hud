@@ -1,6 +1,23 @@
-# Practice Music + HUD
+# Practice Suite
 
-- **Musica en modo practica:** activa *Practice Music Sync*, asi la musica del nivel suena mientras practicas.
-- **HUD en pantalla:** FPS, CPS, CPS maximo, clicks del intento, numero de intento y porcentaje.
+Todo se configura desde los **ajustes del mod** en Geode.
 
-Todo se configura desde los ajustes del mod: que datos mostrar, la esquina, el tamano y la opacidad.
+**Practica**
+- Musica del nivel en modo practica (Practice Music Sync)
+- Practica automatica al entrar al nivel
+- Sin efecto de muerte
+
+**Trucos**
+- Noclip (jugador 1 y/o 2)
+- Speedhack
+- **Modo seguro** (activado por defecto): si usaste trucos en el intento, el juego lo trata como prueba y no guarda progreso ni completa el nivel de verdad
+
+**Hitboxes**
+- Cajas de colision de bloques, peligros, otros objetos y jugador
+
+**Bypass (solo locales)**
+- Desbloquear iconos y colores, tiendas secretas y niveles principales
+- Sin limite de caracteres en campos de texto
+
+**HUD**
+- FPS, CPS, CPS maximo, clicks del intento, intento y porcentaje

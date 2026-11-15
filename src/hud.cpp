@@ -1,16 +1,9 @@
-// Practice Music + HUD
-//
-// Dos cosas:
-//  1) Activa la opcion "Practice Music Sync" del juego, para que la musica del
-//     nivel suene en modo practica (igual que hace Eclipse).
-//  2) Dibuja un HUD con FPS, CPS, clicks, intento y porcentaje mientras jugas.
-//
-// Hecho para Geode v6 (alpha) y Geometry Dash 2.2091.
+// HUD: FPS, CPS, CPS maximo, clicks del intento, intento y porcentaje.
 
-#include <Geode/Geode.hpp>
+#include "common.hpp"
+
 #include <Geode/modify/PlayLayer.hpp>
 #include <Geode/modify/GJBaseGameLayer.hpp>
-#include <Geode/modify/GameStatsManager.hpp>
 
 #include <algorithm>
 #include <chrono>
@@ -58,28 +51,6 @@ namespace {
     };
 
     ClickTracker g_clicks;
-
-    // ---------------------------------------------------------------
-    // Musica en modo practica
-    // ---------------------------------------------------------------
-    // En GD, "Practice Music Sync" es el item GJItem 17. Si esta
-    // desbloqueado y activado, la musica del nivel suena en practica.
-    constexpr int kPracticeMusicItem = 17;
-
-    void applyPracticeMusicSetting() {
-        auto mod = Mod::get();
-        auto stats = GameStatsManager::sharedState();
-        if (!stats) return;
-
-        if (mod->getSettingValue<bool>("practice-music")) {
-            stats->toggleEnableItem(UnlockType::GJItem, kPracticeMusicItem, true);
-            mod->setSavedValue<bool>("forced-enable", true);
-        } else if (mod->getSavedValue<bool>("forced-enable", false)) {
-            // Solo lo apagamos si fuimos nosotros quienes lo prendimos.
-            stats->toggleEnableItem(UnlockType::GJItem, kPracticeMusicItem, false);
-            mod->setSavedValue<bool>("forced-enable", false);
-        }
-    }
 }
 
 // -------------------------------------------------------------------
@@ -200,7 +171,7 @@ public:
 // -------------------------------------------------------------------
 
 // Cuenta los clicks (boton de salto) mientras se juega un nivel.
-class $modify(HudBaseGameLayer, GJBaseGameLayer) {
+class $modify(PhudClickLayer, GJBaseGameLayer) {
     void handleButton(bool down, int button, bool isPlayer1) {
         if (down && button == 1 && PlayLayer::get()) {
             bool twoPlayer = m_levelSettings && m_levelSettings->m_twoPlayerMode;
@@ -212,12 +183,9 @@ class $modify(HudBaseGameLayer, GJBaseGameLayer) {
     }
 };
 
-// Crea el HUD y aplica el ajuste de musica en practica.
-class $modify(HudPlayLayer, PlayLayer) {
+// Crea el HUD al empezar el nivel y cuenta los clicks por intento.
+class $modify(PhudHudLayer, PlayLayer) {
     bool init(GJGameLevel* level, bool dontCreateObjects) {
-        // Antes del init original: asi el juego lee ya el valor correcto.
-        applyPracticeMusicSetting();
-
         if (!PlayLayer::init(level, dontCreateObjects)) return false;
 
         g_clicks.reset();
@@ -234,17 +202,5 @@ class $modify(HudPlayLayer, PlayLayer) {
     void resetLevel() {
         PlayLayer::resetLevel();
         g_clicks.reset(); // los clicks cuentan por intento
-    }
-};
-
-// Hace que el juego considere desbloqueado "Practice Music Sync".
-class $modify(HudStatsManager, GameStatsManager) {
-    bool isItemUnlocked(UnlockType type, int id) {
-        if (GameStatsManager::isItemUnlocked(type, id)) return true;
-
-        if (type == UnlockType::GJItem && id == kPracticeMusicItem) {
-            return Mod::get()->getSettingValue<bool>("practice-music");
-        }
-        return false;
     }
 };

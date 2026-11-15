@@ -1,5 +1,5 @@
 {
-	"geode": "6.0.0-alpha.1",
+	"geode": "6.0.0-alpha.2",
 	"gd": {
 		"win": "2.2091",
 		"android": "2.2091",
@@ -7,23 +7,156 @@
 		"ios": "2.2091"
 	},
 	"id": "local.practice-hud",
-	"name": "Practice Music + HUD",
-	"version": "v1.0.0",
+	"name": "Practice Suite",
+	"version": "v2.0.1",
 	"developer": "local",
-	"description": "Musica del nivel en modo practica y un HUD con FPS, CPS, clicks, intento y porcentaje.",
-	"tags": ["utility", "interface", "gameplay"],
+	"description": "Musica en practica, HUD (FPS/CPS), noclip, speedhack, hitboxes, desbloqueos y modo seguro.",
+	"tags": [
+		"utility",
+		"interface",
+		"gameplay"
+	],
 	"settings": {
+		"t-practice": {
+			"type": "title",
+			"name": "Practica"
+		},
 		"practice-music": {
 			"type": "bool",
 			"name": "Musica en modo practica",
-			"description": "Activa la opcion Practice Music Sync del juego (la musica del nivel suena y se sincroniza en modo practica).",
+			"default": true,
+			"description": "Activa Practice Music Sync: la musica del nivel suena y se sincroniza en practica."
+		},
+		"auto-practice": {
+			"type": "bool",
+			"name": "Practica automatica",
+			"default": false,
+			"description": "Entra en modo practica apenas empieza el nivel."
+		},
+		"no-death-effect": {
+			"type": "bool",
+			"name": "Sin efecto de muerte",
+			"default": false,
+			"description": "Quita la animacion de explosion al morir (reaparece mas rapido)."
+		},
+		"t-cheats": {
+			"type": "title",
+			"name": "Trucos"
+		},
+		"safe-mode": {
+			"type": "bool",
+			"name": "Modo seguro",
+			"default": true,
+			"description": "Si usaste trucos en el intento, el juego lo trata como prueba: no guarda progreso ni completa el nivel de verdad."
+		},
+		"noclip": {
+			"type": "bool",
+			"name": "Noclip",
+			"default": false,
+			"description": "Atraviesa obstaculos sin morir."
+		},
+		"noclip-p1": {
+			"type": "bool",
+			"name": "Noclip jugador 1",
 			"default": true
+		},
+		"noclip-p2": {
+			"type": "bool",
+			"name": "Noclip jugador 2",
+			"default": true
+		},
+		"speedhack-on": {
+			"type": "bool",
+			"name": "Speedhack",
+			"default": false,
+			"description": "Cambia la velocidad del juego. Dejalo apagado al abrir el juego."
+		},
+		"speedhack": {
+			"type": "float",
+			"name": "Velocidad",
+			"description": "1.0 = normal. Menos es mas lento.",
+			"default": 1.0,
+			"min": 0.1,
+			"max": 5.0,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"t-hitbox": {
+			"type": "title",
+			"name": "Hitboxes"
+		},
+		"show-hitboxes": {
+			"type": "bool",
+			"name": "Mostrar hitboxes",
+			"default": false,
+			"description": "Dibuja las cajas de colision del jugador y de los objetos."
+		},
+		"hitbox-solids": {
+			"type": "bool",
+			"name": "Bloques (azul)",
+			"default": true
+		},
+		"hitbox-hazards": {
+			"type": "bool",
+			"name": "Peligros (rojo)",
+			"default": true
+		},
+		"hitbox-others": {
+			"type": "bool",
+			"name": "Otros objetos (verde)",
+			"default": false,
+			"description": "Portales, orbes, pads... Puede bajar los FPS."
+		},
+		"hitbox-fill": {
+			"type": "float",
+			"name": "Relleno",
+			"default": 0.25,
+			"min": 0.0,
+			"max": 1.0,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"t-bypass": {
+			"type": "title",
+			"name": "Bypass"
+		},
+		"unlock-icons": {
+			"type": "bool",
+			"name": "Desbloquear iconos y colores",
+			"default": false,
+			"description": "Todos los iconos, colores y trails disponibles (solo local)."
+		},
+		"unlock-shops": {
+			"type": "bool",
+			"name": "Desbloquear tiendas",
+			"default": false,
+			"description": "Abre las tiendas secretas."
+		},
+		"unlock-main-levels": {
+			"type": "bool",
+			"name": "Desbloquear niveles principales",
+			"default": false,
+			"description": "Quita el requisito de monedas de los niveles principales."
+		},
+		"char-limit": {
+			"type": "bool",
+			"name": "Sin limite de caracteres",
+			"default": false,
+			"description": "Quita el limite de texto en los campos de texto del juego."
+		},
+		"t-hud": {
+			"type": "title",
+			"name": "HUD"
 		},
 		"show-hud": {
 			"type": "bool",
 			"name": "Mostrar HUD",
-			"description": "Muestra las estadisticas en pantalla mientras jugas.",
-			"default": true
+			"default": true,
+			"description": "Muestra las estadisticas en pantalla mientras jugas."
 		},
 		"show-fps": {
 			"type": "bool",
@@ -33,14 +166,14 @@
 		"show-cps": {
 			"type": "bool",
 			"name": "CPS",
-			"description": "Clicks por segundo (ultimo segundo).",
-			"default": true
+			"default": true,
+			"description": "Clicks por segundo (ultimo segundo)."
 		},
 		"show-max-cps": {
 			"type": "bool",
 			"name": "CPS maximo",
-			"description": "El CPS mas alto de este intento.",
-			"default": false
+			"default": false,
+			"description": "El CPS mas alto de este intento."
 		},
 		"show-clicks": {
 			"type": "bool",
@@ -61,7 +194,12 @@
 			"type": "string",
 			"name": "Posicion del HUD",
 			"default": "Arriba izquierda",
-			"one-of": ["Arriba izquierda", "Arriba derecha", "Abajo izquierda", "Abajo derecha"]
+			"one-of": [
+				"Arriba izquierda",
+				"Arriba derecha",
+				"Abajo izquierda",
+				"Abajo derecha"
+			]
 		},
 		"hud-scale": {
 			"type": "float",
