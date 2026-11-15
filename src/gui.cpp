@@ -153,6 +153,15 @@ protected:
         return s;
     }
 
+    // Rectangulo plano exacto (el scale9 no baja de ~33pt de alto, por eso
+    // solo se usa para los paneles grandes).
+    static CCLayerColor* flat(float w, float h, ccColor3B c, GLubyte op = 255) {
+        auto l = CCLayerColor::create(ccColor4B{c.r, c.g, c.b, op}, w, h);
+        l->ignoreAnchorPointForPosition(false);
+        l->setAnchorPoint({0.5f, 0.5f});
+        return l;
+    }
+
     static CCLabelBMFont* text(std::string const& str, ccColor3B c, float maxW, float scale = 0.7f) {
         auto l = CCLabelBMFont::create(str.c_str(), "chatFont.fnt");
         l->setColor(c);
@@ -190,7 +199,7 @@ protected:
     // Boton con fondo redondeado y texto centrado.
     CCMenuItemSpriteExtra* labelButton(std::string const& str, float w, float h, ccColor3B bg,
                                        ccColor3B fg, SEL_MenuHandler cb) {
-        auto b = box(w, h, bg);
+        auto b = flat(w, h, bg);
         auto l = text(str, fg, w - 12.f, 0.7f);
         l->setPosition({w / 2.f, h / 2.f});
         b->addChild(l);
@@ -201,7 +210,7 @@ protected:
 
     // Flecha triangular (izquierda o derecha) dentro de un area tocable.
     CCMenuItemSpriteExtra* arrow(bool right, int tag) {
-        auto bg = box(26.f, 20.f, kField, 0);
+        auto bg = flat(26.f, 20.f, kField, 0);
         auto d = CCDrawNode::create();
         d->setBlendFunc({GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA});
         d->m_bUseArea = false;
@@ -268,9 +277,9 @@ protected:
             auto label = phud::tr(r.label);
 
             if (r.kind == K::Bool) {
-                auto off = box(18.f, 18.f, kTab);
-                auto on = box(18.f, 18.f, kLight);
-                auto dot = box(10.f, 10.f, kAccent);
+                auto off = flat(18.f, 18.f, kTab);
+                auto on = flat(18.f, 18.f, kLight);
+                auto dot = flat(10.f, 10.f, kAccent);
                 dot->setPosition({9.f, 9.f});
                 on->addChild(dot);
                 auto t = CCMenuItemToggler::create(off, on, this, menu_selector(PhudGui::onBool));
@@ -291,7 +300,7 @@ protected:
 
                 float fw = 128.f;
                 float fx = cRight - 10.f - fw / 2.f;
-                auto field = box(fw, 20.f, kField);
+                auto field = flat(fw, 20.f, kField);
                 field->setPosition({fx, y});
                 m_content->addChild(field);
 

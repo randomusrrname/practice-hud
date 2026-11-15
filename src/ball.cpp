@@ -10,8 +10,27 @@
 
 using namespace geode::prelude;
 
+namespace phud {
+    extern unsigned char const kBallPng[];
+    extern unsigned int const kBallPngSize;
+}
+
 namespace {
     constexpr float kRadius = 22.f;
+
+    // Crea el sprite del icono desde los bytes incrustados.
+    CCSprite* makeIcon() {
+        auto img = new CCImage();
+        if (!img->initWithImageData(
+                const_cast<unsigned char*>(phud::kBallPng),
+                static_cast<int>(phud::kBallPngSize), CCImage::kFmtPng)) {
+            img->release();
+            return nullptr;
+        }
+        auto tex = CCTextureCache::sharedTextureCache()->addUIImage(img, "phud-ball-icon");
+        img->release();
+        return tex ? CCSprite::createWithTexture(tex) : nullptr;
+    }
 
     bool pauseOpen() {
         auto scene = CCDirector::get()->getRunningScene();
@@ -36,7 +55,7 @@ protected:
         if (!CCLayer::init()) return false;
 
         // Icono propio (resources/ball.png), ya sin fondo.
-        if (auto icon = CCSprite::create("ball.png"_spr)) {
+        if (auto icon = makeIcon()) {
             icon->setScale(kRadius * 2.f / std::max(1.f, icon->getContentSize().width));
             this->addChild(icon);
         } else if (auto gear = CCSprite::createWithSpriteFrameName("GJ_optionsBtn02_001.png")) {

@@ -1,3 +1,7 @@
+# v3.3.0
+- Fix: checkboxes and buttons rendered as huge squares (now flat rectangles).
+- Fix: ball icon missing texture (icon is now embedded in the mod).
+
 # v3.2.0
 - New menu look (Eclipse style): tabs on the left, uniform rows, flat buttons.
 - New floating ball icon (no background).

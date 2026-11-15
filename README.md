@@ -14,10 +14,10 @@ General > Language.
 
 ```bash
 cd ~/practice-hud
-rm -rf src
-unzip -o ~/storage/downloads/practice-hud-v3.2.zip -d .
+rm -rf src resources
+unzip -o ~/storage/downloads/practice-hud-v3.3.zip -d .
 git add -A
-git commit -m "v3.2.0: menu estilo Eclipse, nuevo icono"
+git commit -m "v3.3.0: fix checkboxes e icono"
 git push
 gh run watch
 ```
