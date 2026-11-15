@@ -1,3 +1,9 @@
+# v3.4.0
+- New modern menu look: rounded cards, sections with titles and short descriptions.
+- Animated switches, open/close animation and a soft slide when changing tabs.
+- New setting: accent color (General > Accent color).
+- Close button moved to a round X at the top right; "Reset ball" is now in General > Floating ball.
+
 # v3.3.0
 - Fix: checkboxes and buttons rendered as huge squares (now flat rectangles).
 - Fix: ball icon missing texture (icon is now embedded in the mod).

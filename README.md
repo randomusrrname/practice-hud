@@ -1,4 +1,4 @@
-# Practice Suite v3 (Geode v6.0.0-alpha.2 / GD 2.2091)
+# Practice Suite v3.4 (Geode v6.0.0-alpha.2 / GD 2.2091)
 
 Bola flotante (arrastrable) que abre el menu del mod. Toca la bola para abrirlo;
 las flechas de arriba cambian de pagina. Todo en ingles por defecto; idioma en
@@ -15,9 +15,9 @@ General > Language.
 ```bash
 cd ~/practice-hud
 rm -rf src resources
-unzip -o ~/storage/downloads/practice-hud-v3.3.zip -d .
+unzip -o ~/storage/downloads/practice-hud-v3.4.zip -d .
 git add -A
-git commit -m "v3.3.0: fix checkboxes e icono"
+git commit -m "v3.4.0: nuevo diseño del menu"
 git push
 gh run watch
 ```

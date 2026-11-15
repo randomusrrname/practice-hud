@@ -8,7 +8,7 @@
 	},
 	"id": "local.practice-hud",
 	"name": "Practice Suite",
-	"version": "v3.3.0",
+	"version": "v3.4.0",
 	"developer": "local",
 	"description": "Floating config menu, customizable HUD (FPS/CPS/images), practice music, noclip, speedhack, hitboxes, unlocks and safe mode. English / Español.",
 	"tags": [
@@ -30,6 +30,21 @@
 				"Español"
 			],
 			"description": "Language of the in-game menu and HUD."
+		},
+		"accent": {
+			"type": "string",
+			"name": "Accent color",
+			"default": "Blue",
+			"one-of": [
+				"Blue",
+				"Purple",
+				"Pink",
+				"Red",
+				"Orange",
+				"Green",
+				"Cyan"
+			],
+			"description": "Highlight color of the in-game menu."
 		},
 		"ball-enabled": {
 			"type": "bool",
