@@ -1,13 +1,9 @@
+# v3.0.0
+- Floating ball (draggable) that opens a config menu inside the game.
+- HUD: every stat can go to any of 9 positions (corners, edges, center) or be off.
+- Option to merge CPS and Clicks in one line.
+- Up to 3 PNG images with transparency (folder: config/images).
+- English by default, Español optional (menu and HUD).
+
 # v2.0.1
-- Actualizado para Geode v6.0.0-alpha.2.
-
-# v2.0.0
-- Noclip, speedhack y Modo Seguro.
-- Hitboxes.
-- Desbloqueo de iconos/colores, tiendas y niveles principales.
-- Practica automatica y sin efecto de muerte.
-- Sin limite de caracteres.
-- El HUD y la musica en practica pasan a la nueva estructura de archivos.
-
-# v1.0.0
-- Musica en practica + HUD de FPS / CPS / clicks / intento / porcentaje.
+- Updated for Geode v6.0.0-alpha.2.

@@ -8,80 +8,106 @@
 	},
 	"id": "local.practice-hud",
 	"name": "Practice Suite",
-	"version": "v2.0.1",
+	"version": "v3.0.0",
 	"developer": "local",
-	"description": "Musica en practica, HUD (FPS/CPS), noclip, speedhack, hitboxes, desbloqueos y modo seguro.",
+	"description": "Floating config menu, customizable HUD (FPS/CPS/images), practice music, noclip, speedhack, hitboxes, unlocks and safe mode. English / Español.",
 	"tags": [
 		"utility",
 		"interface",
 		"gameplay"
 	],
 	"settings": {
+		"t-general": {
+			"type": "title",
+			"name": "General"
+		},
+		"language": {
+			"type": "string",
+			"name": "Language",
+			"default": "English",
+			"one-of": [
+				"English",
+				"Español"
+			],
+			"description": "Language of the in-game menu and HUD."
+		},
+		"ball-enabled": {
+			"type": "bool",
+			"name": "Floating ball",
+			"default": true,
+			"description": "Shows the draggable ball that opens the config menu. If you turn it off, you can only change settings here."
+		},
+		"ball-hide-ingame": {
+			"type": "bool",
+			"name": "Hide ball while playing",
+			"default": true,
+			"description": "The ball reappears when you pause."
+		},
 		"t-practice": {
 			"type": "title",
-			"name": "Practica"
+			"name": "Practice"
 		},
 		"practice-music": {
 			"type": "bool",
-			"name": "Musica en modo practica",
+			"name": "Practice music",
 			"default": true,
-			"description": "Activa Practice Music Sync: la musica del nivel suena y se sincroniza en practica."
+			"description": "Level music plays and stays synced in practice mode."
 		},
 		"auto-practice": {
 			"type": "bool",
-			"name": "Practica automatica",
+			"name": "Auto practice",
 			"default": false,
-			"description": "Entra en modo practica apenas empieza el nivel."
+			"description": "Enters practice mode as soon as the level starts."
 		},
 		"no-death-effect": {
 			"type": "bool",
-			"name": "Sin efecto de muerte",
+			"name": "No death effect",
 			"default": false,
-			"description": "Quita la animacion de explosion al morir (reaparece mas rapido)."
+			"description": "Removes the death explosion (respawn is faster)."
 		},
 		"t-cheats": {
 			"type": "title",
-			"name": "Trucos"
+			"name": "Cheats"
 		},
 		"safe-mode": {
 			"type": "bool",
-			"name": "Modo seguro",
+			"name": "Safe mode",
 			"default": true,
-			"description": "Si usaste trucos en el intento, el juego lo trata como prueba: no guarda progreso ni completa el nivel de verdad."
+			"description": "If you used cheats in an attempt, the game treats it as a test run: no progress is saved and the level is not truly completed."
 		},
 		"noclip": {
 			"type": "bool",
 			"name": "Noclip",
 			"default": false,
-			"description": "Atraviesa obstaculos sin morir."
+			"description": "Pass through obstacles without dying."
 		},
 		"noclip-p1": {
 			"type": "bool",
-			"name": "Noclip jugador 1",
+			"name": "Noclip player 1",
 			"default": true
 		},
 		"noclip-p2": {
 			"type": "bool",
-			"name": "Noclip jugador 2",
+			"name": "Noclip player 2",
 			"default": true
 		},
 		"speedhack-on": {
 			"type": "bool",
 			"name": "Speedhack",
 			"default": false,
-			"description": "Cambia la velocidad del juego. Dejalo apagado al abrir el juego."
+			"description": "Changes the game speed. Keep it off when opening the game."
 		},
 		"speedhack": {
 			"type": "float",
-			"name": "Velocidad",
-			"description": "1.0 = normal. Menos es mas lento.",
+			"name": "Speed",
 			"default": 1.0,
 			"min": 0.1,
 			"max": 5.0,
 			"control": {
 				"input": true,
 				"slider": true
-			}
+			},
+			"description": "1.0 = normal. Lower is slower."
 		},
 		"t-hitbox": {
 			"type": "title",
@@ -89,29 +115,29 @@
 		},
 		"show-hitboxes": {
 			"type": "bool",
-			"name": "Mostrar hitboxes",
+			"name": "Show hitboxes",
 			"default": false,
-			"description": "Dibuja las cajas de colision del jugador y de los objetos."
+			"description": "Draws collision boxes of the player and objects."
 		},
 		"hitbox-solids": {
 			"type": "bool",
-			"name": "Bloques (azul)",
+			"name": "Solids (blue)",
 			"default": true
 		},
 		"hitbox-hazards": {
 			"type": "bool",
-			"name": "Peligros (rojo)",
+			"name": "Hazards (red)",
 			"default": true
 		},
 		"hitbox-others": {
 			"type": "bool",
-			"name": "Otros objetos (verde)",
+			"name": "Others (green)",
 			"default": false,
-			"description": "Portales, orbes, pads... Puede bajar los FPS."
+			"description": "Portals, orbs, pads... May lower FPS."
 		},
 		"hitbox-fill": {
 			"type": "float",
-			"name": "Relleno",
+			"name": "Fill",
 			"default": 0.25,
 			"min": 0.0,
 			"max": 1.0,
@@ -126,27 +152,27 @@
 		},
 		"unlock-icons": {
 			"type": "bool",
-			"name": "Desbloquear iconos y colores",
+			"name": "Unlock icons and colors",
 			"default": false,
-			"description": "Todos los iconos, colores y trails disponibles (solo local)."
+			"description": "All icons, colors and trails (local only)."
 		},
 		"unlock-shops": {
 			"type": "bool",
-			"name": "Desbloquear tiendas",
+			"name": "Unlock shops",
 			"default": false,
-			"description": "Abre las tiendas secretas."
+			"description": "Opens the secret shops."
 		},
 		"unlock-main-levels": {
 			"type": "bool",
-			"name": "Desbloquear niveles principales",
+			"name": "Unlock main levels",
 			"default": false,
-			"description": "Quita el requisito de monedas de los niveles principales."
+			"description": "Removes the coin requirement of main levels."
 		},
 		"char-limit": {
 			"type": "bool",
-			"name": "Sin limite de caracteres",
+			"name": "No character limit",
 			"default": false,
-			"description": "Quita el limite de texto en los campos de texto del juego."
+			"description": "Removes the text limit of in-game text fields."
 		},
 		"t-hud": {
 			"type": "title",
@@ -154,56 +180,127 @@
 		},
 		"show-hud": {
 			"type": "bool",
-			"name": "Mostrar HUD",
+			"name": "Show HUD",
 			"default": true,
-			"description": "Muestra las estadisticas en pantalla mientras jugas."
+			"description": "Shows stats on screen while playing."
 		},
-		"show-fps": {
-			"type": "bool",
-			"name": "FPS",
-			"default": true
-		},
-		"show-cps": {
-			"type": "bool",
-			"name": "CPS",
-			"default": true,
-			"description": "Clicks por segundo (ultimo segundo)."
-		},
-		"show-max-cps": {
-			"type": "bool",
-			"name": "CPS maximo",
-			"default": false,
-			"description": "El CPS mas alto de este intento."
-		},
-		"show-clicks": {
-			"type": "bool",
-			"name": "Clicks del intento",
-			"default": true
-		},
-		"show-attempt": {
-			"type": "bool",
-			"name": "Intento",
-			"default": true
-		},
-		"show-percent": {
-			"type": "bool",
-			"name": "Porcentaje",
-			"default": false
-		},
-		"hud-position": {
+		"slot-fps": {
 			"type": "string",
-			"name": "Posicion del HUD",
-			"default": "Arriba izquierda",
+			"name": "FPS position",
+			"default": "Top Left",
 			"one-of": [
-				"Arriba izquierda",
-				"Arriba derecha",
-				"Abajo izquierda",
-				"Abajo derecha"
-			]
+				"Off",
+				"Top Left",
+				"Top Center",
+				"Top Right",
+				"Middle Left",
+				"Center",
+				"Middle Right",
+				"Bottom Left",
+				"Bottom Center",
+				"Bottom Right"
+			],
+			"description": "Where to show this stat. Stats in the same position are stacked."
+		},
+		"slot-cps": {
+			"type": "string",
+			"name": "CPS position",
+			"default": "Top Left",
+			"one-of": [
+				"Off",
+				"Top Left",
+				"Top Center",
+				"Top Right",
+				"Middle Left",
+				"Center",
+				"Middle Right",
+				"Bottom Left",
+				"Bottom Center",
+				"Bottom Right"
+			],
+			"description": "Where to show this stat. Stats in the same position are stacked."
+		},
+		"slot-maxcps": {
+			"type": "string",
+			"name": "Max CPS position",
+			"default": "Off",
+			"one-of": [
+				"Off",
+				"Top Left",
+				"Top Center",
+				"Top Right",
+				"Middle Left",
+				"Center",
+				"Middle Right",
+				"Bottom Left",
+				"Bottom Center",
+				"Bottom Right"
+			],
+			"description": "Where to show this stat. Stats in the same position are stacked."
+		},
+		"slot-clicks": {
+			"type": "string",
+			"name": "Clicks position",
+			"default": "Top Left",
+			"one-of": [
+				"Off",
+				"Top Left",
+				"Top Center",
+				"Top Right",
+				"Middle Left",
+				"Center",
+				"Middle Right",
+				"Bottom Left",
+				"Bottom Center",
+				"Bottom Right"
+			],
+			"description": "Where to show this stat. Stats in the same position are stacked."
+		},
+		"slot-attempt": {
+			"type": "string",
+			"name": "Attempt position",
+			"default": "Top Left",
+			"one-of": [
+				"Off",
+				"Top Left",
+				"Top Center",
+				"Top Right",
+				"Middle Left",
+				"Center",
+				"Middle Right",
+				"Bottom Left",
+				"Bottom Center",
+				"Bottom Right"
+			],
+			"description": "Where to show this stat. Stats in the same position are stacked."
+		},
+		"slot-percent": {
+			"type": "string",
+			"name": "Percent position",
+			"default": "Off",
+			"one-of": [
+				"Off",
+				"Top Left",
+				"Top Center",
+				"Top Right",
+				"Middle Left",
+				"Center",
+				"Middle Right",
+				"Bottom Left",
+				"Bottom Center",
+				"Bottom Right"
+			],
+			"description": "Where to show this stat. Stats in the same position are stacked."
+		},
+		"merge-cps-clicks": {
+			"type": "bool",
+			"name": "Merge CPS and Clicks",
+			"default": false,
+			"description": "Shows \"CPS: 6 | Clicks: 120\" in one line (uses the CPS position)."
 		},
 		"hud-scale": {
 			"type": "float",
-			"name": "Tamano del texto",
+			"name": "Text size",
 			"default": 0.4,
 			"min": 0.2,
 			"max": 1.0,
@@ -214,10 +311,228 @@
 		},
 		"hud-opacity": {
 			"type": "int",
-			"name": "Opacidad",
+			"name": "Text opacity",
 			"default": 200,
 			"min": 30,
 			"max": 255,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"t-images": {
+			"type": "title",
+			"name": "Images"
+		},
+		"img1-enabled": {
+			"type": "bool",
+			"name": "Image 1",
+			"default": false,
+			"description": "Put PNG files in the mod's config folder, inside \"images\". Use the floating ball menu to pick one."
+		},
+		"img1-file": {
+			"type": "string",
+			"name": "Image 1 file",
+			"default": ""
+		},
+		"img1-slot": {
+			"type": "string",
+			"name": "Image 1 position",
+			"default": "Top Right",
+			"one-of": [
+				"Off",
+				"Top Left",
+				"Top Center",
+				"Top Right",
+				"Middle Left",
+				"Center",
+				"Middle Right",
+				"Bottom Left",
+				"Bottom Center",
+				"Bottom Right"
+			]
+		},
+		"img1-scale": {
+			"type": "float",
+			"name": "Image 1 scale",
+			"default": 1.0,
+			"min": 0.05,
+			"max": 3.0,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"img1-opacity": {
+			"type": "int",
+			"name": "Image 1 opacity",
+			"default": 255,
+			"min": 0,
+			"max": 255,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"img1-offset-x": {
+			"type": "int",
+			"name": "Image 1 offset X",
+			"default": 0,
+			"min": -300,
+			"max": 300,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"img1-offset-y": {
+			"type": "int",
+			"name": "Image 1 offset Y",
+			"default": 0,
+			"min": -300,
+			"max": 300,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"img2-enabled": {
+			"type": "bool",
+			"name": "Image 2",
+			"default": false
+		},
+		"img2-file": {
+			"type": "string",
+			"name": "Image 2 file",
+			"default": ""
+		},
+		"img2-slot": {
+			"type": "string",
+			"name": "Image 2 position",
+			"default": "Top Right",
+			"one-of": [
+				"Off",
+				"Top Left",
+				"Top Center",
+				"Top Right",
+				"Middle Left",
+				"Center",
+				"Middle Right",
+				"Bottom Left",
+				"Bottom Center",
+				"Bottom Right"
+			]
+		},
+		"img2-scale": {
+			"type": "float",
+			"name": "Image 2 scale",
+			"default": 1.0,
+			"min": 0.05,
+			"max": 3.0,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"img2-opacity": {
+			"type": "int",
+			"name": "Image 2 opacity",
+			"default": 255,
+			"min": 0,
+			"max": 255,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"img2-offset-x": {
+			"type": "int",
+			"name": "Image 2 offset X",
+			"default": 0,
+			"min": -300,
+			"max": 300,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"img2-offset-y": {
+			"type": "int",
+			"name": "Image 2 offset Y",
+			"default": 0,
+			"min": -300,
+			"max": 300,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"img3-enabled": {
+			"type": "bool",
+			"name": "Image 3",
+			"default": false
+		},
+		"img3-file": {
+			"type": "string",
+			"name": "Image 3 file",
+			"default": ""
+		},
+		"img3-slot": {
+			"type": "string",
+			"name": "Image 3 position",
+			"default": "Top Right",
+			"one-of": [
+				"Off",
+				"Top Left",
+				"Top Center",
+				"Top Right",
+				"Middle Left",
+				"Center",
+				"Middle Right",
+				"Bottom Left",
+				"Bottom Center",
+				"Bottom Right"
+			]
+		},
+		"img3-scale": {
+			"type": "float",
+			"name": "Image 3 scale",
+			"default": 1.0,
+			"min": 0.05,
+			"max": 3.0,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"img3-opacity": {
+			"type": "int",
+			"name": "Image 3 opacity",
+			"default": 255,
+			"min": 0,
+			"max": 255,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"img3-offset-x": {
+			"type": "int",
+			"name": "Image 3 offset X",
+			"default": 0,
+			"min": -300,
+			"max": 300,
+			"control": {
+				"input": true,
+				"slider": true
+			}
+		},
+		"img3-offset-y": {
+			"type": "int",
+			"name": "Image 3 offset Y",
+			"default": 0,
+			"min": -300,
+			"max": 300,
 			"control": {
 				"input": true,
 				"slider": true

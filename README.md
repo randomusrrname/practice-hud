@@ -1,26 +1,32 @@
-# Practice Suite (Geode v6.0.0-alpha.2 / GD 2.2091)
+# Practice Suite v3 (Geode v6.0.0-alpha.2 / GD 2.2091)
 
-Mod para Geode con musica en practica, HUD, noclip, speedhack, hitboxes,
-desbloqueos y Modo Seguro. No tiene menu propio: todo se activa en los
-**ajustes del mod** (Geode > Mods > Practice Suite > ajustes).
+Bola flotante (arrastrable) que abre el menu del mod. Toca la bola para abrirlo;
+las flechas de arriba cambian de pagina. Todo en ingles por defecto; idioma en
+General > Language.
 
-## Actualizar el repo desde Termux (si ya tenes ~/practice-hud)
+## Imagenes en el HUD
+
+1. Abre el menu > pagina "Image 1/2/3": abajo sale la **ruta exacta** de la carpeta `images`.
+2. Copia ahi tus PNG (con transparencia).
+3. En el menu elige el archivo con las flechas, activa la imagen y elige posicion / escala / opacidad / desplazamiento.
+
+## Actualizar el repo desde Termux
 
 ```bash
 cd ~/practice-hud
 rm -rf src
-unzip -o ~/storage/downloads/practice-hud-v2-alpha2.zip -d .
+unzip -o ~/storage/downloads/practice-hud-v3.zip -d .
 git add -A
-git commit -m "v2.0.1: Geode alpha 2"
+git commit -m "v3.0.0: bola flotante, HUD por posiciones, imagenes, idiomas"
 git push
 gh run watch
 ```
 
-Cuando termine en verde, para bajar el mod:
+Cuando termine en verde:
 
 ```bash
 ID=$(gh run list -L 1 --json databaseId -q '.[0].databaseId')
-gh run download $ID -n "Build Output" -D ~/storage/downloads/practice-hud-build-v2
+gh run download $ID -n "Build Output" -D ~/storage/downloads/practice-hud-build-v3
 ```
 
 Copia `local.practice-hud.geode` a la carpeta de mods (reemplaza al anterior) y reinicia el juego.
@@ -35,9 +41,7 @@ y manda `error.txt`.
 
 ## Notas
 
-- **Modo Seguro** (activado por defecto): si en un intento usaste noclip (y te salvo de una muerte)
-  o speedhack, el juego trata ese intento como prueba: no guarda porcentaje ni completa el nivel.
-- **Speedhack**: dejalo apagado al abrir el juego (cambia el tiempo de todo, tambien de los menus).
-- **Hitboxes**: "otros objetos" puede bajar los FPS en celulares modestos.
-- Los bypass son solo locales: no tocan el servidor ni los rankings.
-- No lo subas al indice oficial de Geode: su politica no acepta mods escritos con IA.
+- Esta version **no se pudo compilar aqui** (sin SDK): puede haber errores de compilacion pequenos; manda el log y se corrigen.
+- Si apagas la bola (`Floating ball` en los ajustes de Geode) solo podras cambiar opciones desde ahi.
+- **Modo seguro** (activado por defecto): intentos con noclip/speedhack no guardan progreso.
+- Los bypass son solo locales. No lo subas al indice oficial de Geode (no acepta mods hechos con IA).

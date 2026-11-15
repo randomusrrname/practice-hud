@@ -1,23 +1,15 @@
 # Practice Suite
 
-Todo se configura desde los **ajustes del mod** en Geode.
+Tap the **floating ball** to open the config menu (or use the mod settings in Geode).
 
-**Practica**
-- Musica del nivel en modo practica (Practice Music Sync)
-- Practica automatica al entrar al nivel
-- Sin efecto de muerte
+**HUD** – FPS, CPS, Max CPS, Clicks, Attempt, Percent: put each one in any corner, edge or the center. Merge CPS + Clicks. Up to 3 PNG images with transparency and opacity.
 
-**Trucos**
-- Noclip (jugador 1 y/o 2)
-- Speedhack
-- **Modo seguro** (activado por defecto): si usaste trucos en el intento, el juego lo trata como prueba y no guarda progreso ni completa el nivel de verdad
+**Practice** – practice music, auto practice, no death effect.
 
-**Hitboxes**
-- Cajas de colision de bloques, peligros, otros objetos y jugador
+**Cheats** – noclip, speedhack and **safe mode** (on by default: attempts with cheats are treated as test runs).
 
-**Bypass (solo locales)**
-- Desbloquear iconos y colores, tiendas secretas y niveles principales
-- Sin limite de caracteres en campos de texto
+**Hitboxes** – player, solids, hazards, others.
 
-**HUD**
-- FPS, CPS, CPS maximo, clicks del intento, intento y porcentaje
+**Bypass (local only)** – unlock icons/colors, shops, main levels, no character limit.
+
+**Language** – English (default) / Español.
