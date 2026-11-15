@@ -89,7 +89,7 @@ protected:
         m_dragging = true;
         m_moved = false;
         m_touchStart = p;
-        m_grab = {c.x - p.x, c.y - p.y};
+        m_grab = CCPoint{c.x - p.x, c.y - p.y};
         return true;
     }
 

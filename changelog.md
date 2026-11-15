@@ -1,3 +1,6 @@
+# v3.0.1
+- Fix de compilacion (bola).
+
 # v3.0.0
 - Floating ball (draggable) that opens a config menu inside the game.
 - HUD: every stat can go to any of 9 positions (corners, edges, center) or be off.
