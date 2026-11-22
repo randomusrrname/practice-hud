@@ -87,7 +87,9 @@ namespace {
                 Sec("Practice mode"),
                 B("practice-music", "Practice music", "Level music plays in practice mode"),
                 B("auto-practice", "Auto practice", "Enters practice as the level starts"),
-                B("no-death-effect", "No death effect", "Removes the death explosion")
+                B("no-death-effect", "No death effect", "Removes the death explosion"),
+                B("respawn-delay-on", "Respawn delay", "Change the time before you respawn"),
+                N("respawn-delay", "Delay (seconds)", 0.0, 2.0, 0.05)
             }});
             v.push_back(Page{"Cheats", {
                 Sec("Safety"),
@@ -97,7 +99,18 @@ namespace {
                 B("noclip-p1", "Noclip P1"),
                 B("noclip-p2", "Noclip P2"),
                 B("speedhack-on", "Speedhack", "Changes the game speed"),
-                N("speedhack", "Speed", 0.1, 5.0, 0.1)
+                N("speedhack", "Speed", 0.1, 5.0, 0.1),
+                B("jump-hack", "Jump hack", "Jump in mid-air")
+            }});
+            v.push_back(Page{"Visual", {
+                Sec("Effects"),
+                B("no-mirror", "No mirror portal", "Mirror portals do not flip the screen"),
+                B("no-glow", "No glow", "Removes the glow from objects"),
+                B("no-respawn-flash", "No respawn flash", "Removes the flash when you respawn"),
+                B("no-music-fadeout", "No music fade out", "Music keeps playing when you die"),
+                Sec("Performance"),
+                B("fps-bypass", "FPS bypass", "Raises the frame cap (limited by your screen)"),
+                N("fps-target", "FPS target", 30, 360, 10, true)
             }});
             v.push_back(Page{"Hitboxes", {
                 Sec("Hitboxes"),
@@ -113,7 +126,10 @@ namespace {
                 B("unlock-icons", "Unlock icons", "All icons, colors and trails"),
                 B("unlock-shops", "Unlock shops", "Opens the secret shops"),
                 B("unlock-main-levels", "Unlock main levels", "No coin requirement"),
-                B("char-limit", "No char limit", "No limit in text fields")
+                B("unlock-paths", "Unlock paths"),
+                B("unlock-music-customizer", "Unlock music customizer"),
+                B("char-limit", "No char limit", "No limit in text fields"),
+                B("checkpoint-limit", "No checkpoint limit", "Unlimited checkpoints in practice")
             }});
             v.push_back(Page{"HUD", {
                 Sec("Position"),
@@ -418,11 +434,11 @@ protected:
 
         for (int i = 0; i < n; ++i) {
             bool sel = (i == s_page);
-            auto btn = this->labelButton(phud::tr(all[i].title), kSideW - 14.f, 22.f,
+            auto btn = this->labelButton(phud::tr(all[i].title), kSideW - 14.f, 20.f,
                 sel ? m_accent : kTab, sel ? kDark : kText, menu_selector(PhudGui::onTab));
             btn->m_scaleMultiplier = 1.02f;
             btn->setTag(i);
-            btn->setPosition({kSideCx, 94.f - static_cast<float>(i) * 26.f});
+            btn->setPosition({kSideCx, 94.f - static_cast<float>(i) * 23.f});
             m_buttonMenu->addChild(btn);
         }
 

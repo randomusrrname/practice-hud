@@ -41,6 +41,8 @@ class $modify(PhudStatsManager, GameStatsManager) {
         if (type == UnlockType::GJItem) {
             if (id == kPracticeMusicItem && phud::on("practice-music")) return true;
             if (phud::on("unlock-icons") && id >= 18 && id <= 20) return true;
+            if (phud::on("unlock-paths") && id >= 6 && id <= 15) return true;
+            if (phud::on("unlock-music-customizer") && id == 16) return true;
         }
         return false;
     }

@@ -1,15 +1,15 @@
 {
-	"geode": "6.0.0-alpha.2",
+	"geode": "6.0.0-beta.1",
 	"gd": {
 		"win": "2.2091",
 		"android": "2.2091",
 		"mac": "2.2091",
 		"ios": "2.2091"
 	},
-	"id": "local.practice-hud",
+	"id": "5hut.practice-hud",
 	"name": "Practice Suite",
-	"version": "v3.4.0",
-	"developer": "local",
+	"version": "v3.5.0",
+	"developer": "5hut",
 	"description": "Floating config menu, customizable HUD (FPS/CPS/images), practice music, noclip, speedhack, hitboxes, unlocks and safe mode. English / Español.",
 	"tags": [
 		"utility",
@@ -80,6 +80,24 @@
 			"default": false,
 			"description": "Removes the death explosion (respawn is faster)."
 		},
+		"respawn-delay-on": {
+			"type": "bool",
+			"name": "Respawn delay",
+			"default": false,
+			"description": "Change how long it takes to respawn after dying."
+		},
+		"respawn-delay": {
+			"type": "float",
+			"name": "Delay (seconds)",
+			"default": 0.5,
+			"min": 0.0,
+			"max": 2.0,
+			"control": {
+				"input": true,
+				"slider": true
+			},
+			"description": "0 = instant respawn."
+		},
 		"t-cheats": {
 			"type": "title",
 			"name": "Cheats"
@@ -123,6 +141,61 @@
 				"slider": true
 			},
 			"description": "1.0 = normal. Lower is slower."
+		},
+		"jump-hack": {
+			"type": "bool",
+			"name": "Jump hack",
+			"default": false,
+			"description": "Jump in mid-air. Counts as a cheat for Safe mode."
+		},
+		"t-visual": {
+			"type": "title",
+			"name": "Visual"
+		},
+		"no-mirror": {
+			"type": "bool",
+			"name": "No mirror portal",
+			"default": false,
+			"description": "Mirror portals do not flip the screen."
+		},
+		"no-glow": {
+			"type": "bool",
+			"name": "No glow",
+			"default": false,
+			"description": "Removes the glow from objects."
+		},
+		"no-respawn-flash": {
+			"type": "bool",
+			"name": "No respawn flash",
+			"default": false,
+			"description": "Removes the flash when you respawn."
+		},
+		"no-music-fadeout": {
+			"type": "bool",
+			"name": "No music fade out",
+			"default": false,
+			"description": "Music does not fade out when you die."
+		},
+		"t-perf": {
+			"type": "title",
+			"name": "Performance"
+		},
+		"fps-bypass": {
+			"type": "bool",
+			"name": "FPS bypass",
+			"default": false,
+			"description": "Raises the frame cap. Limited by your screen."
+		},
+		"fps-target": {
+			"type": "int",
+			"name": "FPS target",
+			"default": 60,
+			"min": 30,
+			"max": 360,
+			"control": {
+				"input": true,
+				"slider": true
+			}
 		},
 		"t-hitbox": {
 			"type": "title",
@@ -183,11 +256,29 @@
 			"default": false,
 			"description": "Removes the coin requirement of main levels."
 		},
+		"unlock-paths": {
+			"type": "bool",
+			"name": "Unlock paths",
+			"default": false,
+			"description": "Opens the Paths menu."
+		},
+		"unlock-music-customizer": {
+			"type": "bool",
+			"name": "Unlock music customizer",
+			"default": false,
+			"description": "Opens the music customizer."
+		},
 		"char-limit": {
 			"type": "bool",
 			"name": "No character limit",
 			"default": false,
 			"description": "Removes the text limit of in-game text fields."
+		},
+		"checkpoint-limit": {
+			"type": "bool",
+			"name": "No checkpoint limit",
+			"default": false,
+			"description": "Place unlimited checkpoints in practice mode."
 		},
 		"t-hud": {
 			"type": "title",

@@ -25,7 +25,7 @@ namespace phud {
     inline bool g_tripped = false;
 
     inline bool cheatsOn() {
-        return on("noclip") || (on("speedhack-on") && num("speedhack") != 1.0);
+        return on("noclip") || on("jump-hack") || (on("speedhack-on") && num("speedhack") != 1.0);
     }
 
     inline bool safeModeActive() {

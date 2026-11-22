@@ -1,3 +1,11 @@
+# v3.5.0
+- 12 new hacks: Jump hack, Respawn delay (0 = instant), No mirror portal, No glow, No respawn flash,
+  No music fade out, FPS bypass (+ target), Unlock paths, Unlock music customizer, No checkpoint limit.
+- New "Visual" page in the menu; sidebar made more compact.
+- Updated for Geode v6.0.0-beta.1.
+- Mod ID changed to `5hut.practice-hud` and developer set to 5hut. Delete the old `local.practice-hud.geode`;
+  settings start fresh and the images folder is now `.../config/5hut.practice-hud/images`.
+
 # v3.4.0
 - New modern menu look: rounded cards, sections with titles and short descriptions.
 - Animated switches, open/close animation and a soft slide when changing tabs.
